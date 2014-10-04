@@ -1,15 +1,25 @@
-taiga-docker
-============
+# taiga-docker
+
 
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
-# NOT READY, YET!
+###  `NOT READY, YET!`
+
 
 
 External Dependencies:
 
-# Postgresql
+   * [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
+   * [Redis](https://registry.hub.docker.com/u/dockerfile/redis/)
+   * [RabbitMQ](https://registry.hub.docker.com/u/dockerfile/rabbitmq/)
+
+Taiga
+
+   * [taiga-back](https://github.com/taigaio/taiga-back): Django backend
+   * [taiga-front](https://github.com/taigaio/taiga-front): Angular.js frontend
+
+### Postgresql
 
 We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
 
@@ -33,19 +43,18 @@ Once you are in psql you can check that indeed our user & database has been crea
     \list
 
 
-# RabbitMQ
-    # https://registry.hub.docker.com/u/dockerfile/rabbitmq/
+### RabbitMQ
+
     # https://github.com/dockerfile/rabbitmq
 
     docker run -d -p 5672:5672 -p 15672:15672 -v /data/rabbitmq:/data/log -v /data/rabbitmq:/data/mnesia --name rabbitmq  dockerfile/rabbitmq
 
-# Redis
-    # https://registry.hub.docker.com/u/dockerfile/redis/
+### Redis
     # https://github.com/dockerfile/redis
 
     docker run -d -p 6379:6379 -v /data/redis:/data --name redis dockerfile/redis
 
-# Taiga-Back
+### Taiga-Back
 
 Before running our backend, we have to populate our database, to do so, Taiga provides a regenerate script that creates all the tables and even some testing data
 
@@ -56,7 +65,7 @@ Once the database has been populated, we can start our Django application:
     docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq taiga/taiga-back
 
 
-# Taiga-Front
+### Taiga-Front
 
 Frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
 
