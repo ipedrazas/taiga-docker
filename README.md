@@ -7,10 +7,12 @@ Docker scripts to run your own  [Taiga](https://Taiga.io/).
 External Dependencies:
 
 # Postgresql
-    # https://github.com/orchardup/docker-postgresql
-    # https://registry.hub.docker.com/u/orchardup/postgresql/
+    # https://registry.hub.docker.com/_/postgres/
+    docker run --name postgres -d postgres
 
-    docker run -d -p 5432:5432 --name postgres orchardup/postgresql
+If you want to access the database, run the following container:
+
+    docker run -it --link postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
 
 # RabbitMQ
     # https://registry.hub.docker.com/u/dockerfile/rabbitmq/
