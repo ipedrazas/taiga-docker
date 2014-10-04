@@ -1,6 +1,10 @@
 #! /bin/bash
 
 
+sudo mkdir -p /data/postgresql
+sudo mkdir -p /data/rabbitmq
+sudo mkdir -p /data/redis
+
 sudo docker run -d --name postgres   -p 5432:5432  -v /data/postgresql:/var/lib/postgresql/data postgres
 sudo docker run -d --name rabbitmq   -p 5672:5672 -p 15672:15672 -v /data/rabbitmq:/data/log -v /data/rabbitmq:/data/mnesia dockerfile/rabbitmq
 sudo docker run -d --name redis      -p 6379:6379 -v /data/redis:/data dockerfile/redis

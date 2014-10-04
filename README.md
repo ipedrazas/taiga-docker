@@ -1,11 +1,15 @@
-# taiga-docker
+# taiga-docker  - NOT READY, YET!
 
 
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
-###  `NOT READY, YET!`
+If you have Docker installed in your machine running Taiga is as easy as running these 2 scripts:
 
+* setup.sh: creates directories to store the data from postgres, redis and rabbitmq, initializes the database, pre-loads objects and docker images.
+* run-taiga.sh: once you have run setup.sh succesfully you can run taiga from this script.
+
+These scripts allow you to run Taiga in one single host. The scripts will launch 5 docker containers:
 
 
 External Dependencies:
