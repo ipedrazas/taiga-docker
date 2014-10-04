@@ -4,15 +4,34 @@ taiga-docker
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
+# NOT READY, YET!
+
+
 External Dependencies:
 
 # Postgresql
-    # https://registry.hub.docker.com/_/postgres/
-    docker run --name postgres -d postgres
+
+We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
+
+    docker run --name postgres -v /data/postgresql:/var/lib/postgresql/data -d -p 5432:5432 postgres
+
+To initialise the database
+
+    docker run -it --link postgres:postgres --rm postgres sh -c "su postgres --command 'createuser -h "'$POSTGRES_PORT_5432_TCP_ADDR'" -p "'$POSTGRES_PORT_5432_TCP_PORT'" -d -r -s taiga'"
+
+    docker run -it --link postgres:postgres --rm postgres sh -c "su postgres --command 'createdb -h "'$POSTGRES_PORT_5432_TCP_ADDR'" -p "'$POSTGRES_PORT_5432_TCP_PORT'" -O taiga taiga'";
 
 If you want to access the database, run the following container:
 
     docker run -it --link postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
+
+Once you are in psql you can check that indeed our user & database has been created:
+
+    # To list the users defined in our system use the following command
+    \du
+    # To list the databases, the command is
+    \list
+
 
 # RabbitMQ
     # https://registry.hub.docker.com/u/dockerfile/rabbitmq/
@@ -28,4 +47,17 @@ If you want to access the database, run the following container:
 
 # Taiga-Back
 
+Before running our backend, we have to populate our database, to do so, Taiga provides a regenerate script that creates all the tables and even some testing data
+
+    docker run -it --rm --link postgres:postgres taiga/taiga-back bash regenerate.sh
+
+Once the database has been populated, we can start our Django application:
+
     docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq taiga/taiga-back
+
+
+# Taiga-Front
+
+    Frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
+
+    We have two options here: to ask politely to taiga to provide an already built version (\o/) or building and intermediate container that will pull the source from github, compile it and build our new image.

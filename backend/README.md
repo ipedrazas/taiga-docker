@@ -12,7 +12,9 @@ If you want to initialise the app, you have to run the following command:
 
 If you want to check that the image is configured as you wanted, run bash from the image
 
-        sudo docker run -it --rm -link postgres:postgres taiga/taiga-back bash
+        sudo docker run -it --rm --link postgres:postgres taiga/taiga-back bash
 
 
-Once everything is
+Once everything is you can run the Django App with this command:
+
+        docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq taiga/taiga-back
