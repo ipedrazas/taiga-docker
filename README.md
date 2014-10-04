@@ -58,6 +58,6 @@ Once the database has been populated, we can start our Django application:
 
 # Taiga-Front
 
-    Frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
+Frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
 
-    We have two options here: to ask politely to taiga to provide an already built version (\o/) or building and intermediate container that will pull the source from github, compile it and build our new image.
+We have two options here: to ask politely to taiga to provide an already built version (\o/) or building and intermediate container that will pull the source from github, compile it and build our new image.
