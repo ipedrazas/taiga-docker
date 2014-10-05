@@ -19,4 +19,4 @@ sudo docker run -it --rm --link postgres:postgres taiga/taiga-back bash regenera
 sudo docker stop taiga-back
 sudo docker stop redis
 sudo docker stop rabbitmq
-sudo docker postgres stop
+sudo docker stop postgres
