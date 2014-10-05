@@ -21,6 +21,8 @@ from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+DEBUG = True
+
 APPEND_SLASH = False
 ALLOWED_HOSTS = ["*"]
 
@@ -33,23 +35,6 @@ LANGUAGES = (
     ("es", _("Spanish")),
 )
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "taiga",
-    }
-}
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'taiga',
-#        'USER': 'taiga',
-#        'PASSWORD': '',
-#        'HOST': '',
-#        'PORT': '',
-#    }
-#}
 
 DATABASES = {
     "default": {
@@ -132,7 +117,7 @@ ADMIN_MEDIA_PREFIX = "http://localhost:8000/static/admin/"
 
 # Static configuration.
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static2")
 
 
 STATICFILES_FINDERS = [
@@ -143,6 +128,7 @@ STATICFILES_FINDERS = [
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Don't forget to use absolute paths, not relative paths.
+    "/taiga/static",
 )
 
 

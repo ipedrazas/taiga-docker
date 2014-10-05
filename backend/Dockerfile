@@ -16,7 +16,7 @@ RUN (pip install -r /taiga/requirements.txt)
 RUN (cd /taiga && cat /tmp/docker-settings.py >> settings/local.py)
 RUN (rm /tmp/docker-settings.py)
 
-RUN (cd /taiga && python manage.py collectstatic --noinput)
+# RUN (cd /taiga && python manage.py collectstatic --noinput)
 
 WORKDIR /taiga
 
