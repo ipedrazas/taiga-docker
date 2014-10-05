@@ -14,7 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os.path, sys, os
+import os.path
+import sys
+import os
 from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -87,7 +89,7 @@ TIME_ZONE = "UTC"
 LANGUAGE_CODE = "en"
 USE_I18N = True
 USE_L10N = True
-LOGIN_URL="/auth/login/"
+LOGIN_URL = "/auth/login/"
 USE_TZ = True
 
 SITES = {
@@ -99,7 +101,7 @@ SITE_ID = "api"
 
 # Session configuration (only used for admin)
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
-SESSION_COOKIE_AGE = 1209600 # (2 weeks)
+SESSION_COOKIE_AGE = 1209600  # (2 weeks)
 
 # MAIL OPTIONS
 DEFAULT_FROM_EMAIL = "john@doe.com"
@@ -247,12 +249,12 @@ LOGGING = {
     },
     "handlers": {
         "null": {
-            "level":"DEBUG",
-            "class":"django.utils.log.NullHandler",
+            "level": "DEBUG",
+            "class": "django.utils.log.NullHandler",
         },
-        "console":{
-            "level":"DEBUG",
-            "class":"logging.StreamHandler",
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
             "formatter": "simple",
         },
         "mail_admins": {
@@ -263,9 +265,9 @@ LOGGING = {
     },
     "loggers": {
         "django": {
-            "handlers":["null"],
+            "handlers": ["null"],
             "propagate": True,
-            "level":"INFO",
+            "level": "INFO",
         },
         "django.request": {
             "handlers": ["mail_admins", "console"],
@@ -291,7 +293,7 @@ DATE_INPUT_FORMATS = (
 
 # Authentication settings (only for django admin)
 AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend", # default
+    "django.contrib.auth.backends.ModelBackend",  # default
 )
 
 ANONYMOUS_USER_ID = -1
@@ -331,8 +333,11 @@ DEFAULT_BIG_AVATAR_SIZE = 300           # 300x300 pixels
 
 THUMBNAIL_ALIASES = {
     '': {
-        'avatar': {'size': (DEFAULT_AVATAR_SIZE, DEFAULT_AVATAR_SIZE), 'crop': True},
-        'big-avatar': {'size': (DEFAULT_BIG_AVATAR_SIZE, DEFAULT_BIG_AVATAR_SIZE), 'crop': True},
+        'avatar': {'size': (DEFAULT_AVATAR_SIZE, DEFAULT_AVATAR_SIZE),
+                   'crop': True},
+        'big-avatar': {'size':
+                       (DEFAULT_BIG_AVATAR_SIZE, DEFAULT_BIG_AVATAR_SIZE),
+                       'crop': True},
     },
 }
 
@@ -345,10 +350,10 @@ TAGS_PREDEFINED_COLORS = ["#fce94f", "#edd400", "#c4a000", "#8ae234",
                           "#f57900", "#ce5c00", "#729fcf", "#3465a4",
                           "#204a87", "#888a85", "#ad7fa8", "#75507b",
                           "#5c3566", "#ef2929", "#cc0000", "#a40000",
-                          "#2e3436",]
+                          "#2e3436", ]
 
 # NOTE: DON'T INSERT MORE SETTINGS AFTER THIS LINE
-TEST_RUNNER="django.test.runner.DiscoverRunner"
+TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 if "test" in sys.argv:
     print ("\033[1;91mNo django tests.\033[0m")

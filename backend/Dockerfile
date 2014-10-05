@@ -9,13 +9,14 @@ RUN easy_install pip
 # ADD supervisor.conf /opt/supervisor.conf
 COPY docker-settings.py /tmp/docker-settings.py
 RUN (cd / && git clone https://github.com/taigaio/taiga-back.git taiga)
-COPY initialise.sh /taiga/initialise.sh
 
 # docker needs to define the host database, use this file for
 # any other settings you want to add/change
 RUN (pip install -r /taiga/requirements.txt)
 RUN (cd /taiga && cat /tmp/docker-settings.py >> settings/local.py)
 RUN (rm /tmp/docker-settings.py)
+
+RUN (cd /taiga && python manage.py collectstatic --noinput)
 
 WORKDIR /taiga
 

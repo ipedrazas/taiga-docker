@@ -8,7 +8,7 @@ The build file install all the dependencies, add the code from github and config
 
 If you want to initialise the app, you have to run the following command:
 
-        sudo docker -it --rm taiga/taiga-back -c 'regenerate.sh'
+        sudo docker run -it --rm taiga/taiga-back -c 'regenerate.sh'
 
 If you want to check that the database is created and everything is configured as expected:
 
