@@ -27,8 +27,13 @@ Once you are in psql you can check that indeed our user & database has been crea
 
 And hopefully, our tables will be there :)
 
+The `build` process creates the static elements of the application, to collect them you should execute this command:
+
+        sudo docker run -it --rm  -v /data/taiga/dist:/static taiga/taiga-back sh -c 'mv /taiga/static /static/'
+
 
 Once everything is you can run the Django App with this command:
 
         docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq taiga/taiga-back
+
 
