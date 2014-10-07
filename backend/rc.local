@@ -1,0 +1,3 @@
+#!/bin/sh -e
+. /etc/rc.local.circusd
+exit 0
