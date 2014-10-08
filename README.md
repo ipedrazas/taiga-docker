@@ -78,6 +78,7 @@ We have two options here: to ask politely to taiga to provide an already built v
 To build the frontend we have to run the taiga/frontend-build container
 
         sudo docker run -it --rm -v /data/taiga:/taiga taiga/front-build
+        sudo docker run -it --rm -v /data/taiga:/taiga ipedrazas/taiga-build-frontend
 
 this should create the `dist` directory in `/data/taiga`
 

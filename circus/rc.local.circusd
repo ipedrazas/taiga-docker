@@ -1,1 +1,0 @@
-/usr/local/bin/circusd --daemon /home/$USER/conf/circus.ini

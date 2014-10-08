@@ -5,6 +5,6 @@ mkdir build
 
 cp -r /data/taiga build
 
-sudo docker build -t taiga/front .
+sudo docker build -t ipedrazas/taiga-front .
 
 rm -rf build

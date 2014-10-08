@@ -5,8 +5,6 @@ RUN apt-get -qq update
 
 RUN apt-get install -y python-dev python-setuptools git-core
 
-#RUN pip install uwsgi circus
-
 RUN (echo hi)
 RUN (echo hi)
 RUN (cd / && git clone https://github.com/taigaio/taiga-back.git taiga)
@@ -23,23 +21,10 @@ RUN (echo "alias ll='ls -atrhlF'" >> ~/.bashrc)
 RUN (cd /taiga && python manage.py collectstatic --noinput)
 
 
-# Circus
-
-#COPY rc.local /etc/rc.local
-#COPY rc.local.circusd /etc/rc.local.circusd
-#COPY circus.ini /taiga/conf/circus.ini
-
-#RUN chmod +x /etc/rc.local
-#RUN chmod +x /etc/rc.local.circusd
-
-####
-
 VOLUME ["/logs"]
 
 WORKDIR /taiga
 
-EXPOSE 8000
+EXPOSE 8001
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
-#CMD ["/usr/local/bin/circusd","--daemon", "/taiga/conf/circus.ini"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]

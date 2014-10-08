@@ -21,6 +21,8 @@ RUN (ln -s /usr/bin/nodejs /usr/bin/node)
 
 RUN (cd / && git clone https://github.com/taigaio/taiga-front.git)
 
+#COPY main.coffee /taiga-front/app/config/main.coffee
+
 RUN (cd /taiga-front && npm install)
 RUN (cd /taiga-front && bower install --allow-root)
 RUN (cd /taiga-front && gulp deploy)

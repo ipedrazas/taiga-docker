@@ -78,8 +78,8 @@ LOGIN_URL = "/auth/login/"
 USE_TZ = True
 
 SITES = {
-    "api": {"domain": "localhost:8000", "scheme": "http", "name": "api"},
-    "front": {"domain": "localhost:9001", "scheme": "http", "name": "front"},
+    "api": {"domain": "taiga-back:8000", "scheme": "http", "name": "api"},
+    "front": {"domain": "taiga-front:9001", "scheme": "http", "name": "front"},
 }
 
 SITE_ID = "api"
@@ -108,12 +108,12 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # The absolute url is mandatory because attachments
 # urls depends on it. On production should be set
 # something like https://media.taiga.io/
-MEDIA_URL = "http://localhost:8000/media/"
+MEDIA_URL = "http://taiga-front/media/"
 
 # Static url is not widelly used by taiga (only
 # if admin is activated).
-STATIC_URL = "http://localhost:8000/static/"
-ADMIN_MEDIA_PREFIX = "http://localhost:8000/static/admin/"
+STATIC_URL = "http://taiga-front/static/"
+ADMIN_MEDIA_PREFIX = "http://taiga-front/static/admin/"
 
 # Static configuration.
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
