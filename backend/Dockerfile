@@ -3,7 +3,13 @@ FROM python:3
 MAINTAINER Ivan Pedrazas "ipedrazas@gmail.com"
 RUN apt-get -qq update
 
-RUN apt-get install -y python-dev python-setuptools git-core
+RUN apt-get install -y python-dev python-setuptools git-core locales
+
+RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
+RUN echo "LANGUAGE=en" >> /etc/default/locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
 
 RUN (echo hi)
 RUN (echo hi)
