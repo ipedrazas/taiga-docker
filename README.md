@@ -1,4 +1,4 @@
-# taiga-docker  - NOT READY, YET!
+# taiga-docker
 
 
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
