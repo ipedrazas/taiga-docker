@@ -4,8 +4,10 @@
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
-If you have Docker installed in your machine running Taiga is as easy as running these 2 scripts:
 
+Running Taiga is as easy as running these 3 scripts:
+
+* install-docker.sh: install docker (Ubuntu only). `skip this step if you have Docker installed in your machine`
 * setup.sh: creates directories to store the data from postgres, redis and rabbitmq, initializes the database, pre-loads objects and docker images.
 * run-taiga.sh: once you have run setup.sh succesfully you can run taiga from this script.
 
