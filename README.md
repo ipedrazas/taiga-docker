@@ -41,7 +41,7 @@ If you want to access the database, run the following container:
 
     docker run -it --link postgres:postgres --rm postgres sh -c 'exec psql -h "$POSTGRES_PORT_5432_TCP_ADDR" -p "$POSTGRES_PORT_5432_TCP_PORT" -U postgres'
 
-Once you are in psql you can check that indeed our user & database has been created:
+Once you are in psql you can check that indeed our user & database have been created:
 
     # To list the users defined in our system use the following command
     \du
@@ -73,9 +73,9 @@ Once the database has been populated, we can start our Django application:
 
 ### Taiga-Front
 
-Frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
+The frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
 
-We have two options here: to ask politely to taiga to provide an already built version (\o/) or building and intermediate container that will pull the source from github, compile it and build our new image.
+We have two options here: to politely ask Taiga to provide an already built version (\o/) or to build an intermediate container that will pull the source from GitHub, compile it and build our new image.
 
 To build the frontend we have to run the taiga/frontend-build container
 
@@ -88,7 +88,7 @@ Now we have to create the static site from our django app, to do so, we execute 
 
         sudo docker run -it --rm  -v /data/taiga:/static taiga/taiga-back sh -c 'mv /taiga/static /static/'
 
-Once we have executed these two scrits, we should have the following in our host:
+Once we have executed these two scripts, we should have the following in our host:
 
         -> % ll /data/taiga/* | grep -vE "/data/taiga/^$"
         /data/taiga/dist:
@@ -119,5 +119,8 @@ Finally, we run the frontend
         docker run -d -p 80:80 taiga/front
 
 
+#### Note for OSX + boot2docker Users
+
+Since boot2docker actually runs the docker commands in a virtual machine you must omit the leading 'sudo' from those of the above commands that use it.
 
 

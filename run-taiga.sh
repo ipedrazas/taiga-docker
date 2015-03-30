@@ -1,5 +1,9 @@
 #! /bin/bash
 
-sudo docker start postgres
-sudo docker start taiga-back
-sudo docker start taiga-front
+if [[ $OSTYPE != darwin* ]]; then
+  SUDO=sudo
+fi
+
+$SUDO docker start postgres
+$SUDO docker start taiga-back
+$SUDO docker start taiga-front
