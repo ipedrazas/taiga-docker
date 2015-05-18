@@ -206,7 +206,6 @@ INSTALLED_APPS = [
     "taiga.mdrender",
     "taiga.export_import",
 
-    "rest_framework",
     "djmail",
     "django_jinja",
     "easy_thumbnails",
