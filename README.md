@@ -124,3 +124,4 @@ Finally, we run the frontend
 Since boot2docker actually runs the docker commands in a virtual machine you must omit the leading 'sudo' from those of the above commands that use it.
 
 
+Once you've successfully run run-taiga.sh start a web browser and point it to http://localhost:80. You should be greeted by a login page. The administrators username is `admin`, and the password is `123123`.
