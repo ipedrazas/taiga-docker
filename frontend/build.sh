@@ -4,11 +4,12 @@ if [[ $OSTYPE != darwin* ]]; then
   SUDO=sudo
 fi
 
-rm -rf build
-mkdir build
+if [[ -d  taiga-front-dist ]]; then
+    rm -rf taiga-front-dist
+fi
 
-cp -r /data/taiga build
+git clone https://github.com/taigaio/taiga-front-dist
 
 $SUDO docker build -t ipedrazas/taiga-front .
 
-rm -rf build
+

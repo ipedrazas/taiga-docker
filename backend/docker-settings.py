@@ -18,6 +18,8 @@ import os.path
 import sys
 import os
 from django.utils.translation import ugettext_lazy as _
+from .common import *
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 

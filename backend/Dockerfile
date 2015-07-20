@@ -1,33 +1,21 @@
-
-FROM python:3
+FROM python:3.4.3-onbuild
 MAINTAINER Ivan Pedrazas "ipedrazas@gmail.com"
-RUN apt-get -qq update
 
-RUN apt-get install -y python-dev python-setuptools git-core locales
+ADD taiga-back /taiga
 
+COPY docker-settings.py /taiga/settings/local.py
+#COPY regenerate.sh /taiga/regenerate.sh
+
+RUN apt-get update && apt-get install locales -y
 RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
 RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
 RUN echo "LANGUAGE=en" >> /etc/default/locale
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-RUN (echo hi)
-RUN (echo hi)
-RUN (cd / && git clone https://github.com/taigaio/taiga-back.git taiga)
-
-# docker needs to define the host database, use this file for
-# any other settings you want to add/change
-RUN (pip install -r /taiga/requirements.txt)
-COPY docker-settings.py /tmp/docker-settings.py
-RUN (cd /taiga && cat /tmp/docker-settings.py >> settings/local.py)
-RUN (rm /tmp/docker-settings.py)
-
-RUN (echo "alias ll='ls -atrhlF'" >> ~/.bashrc)
-
 RUN (cd /taiga && python manage.py collectstatic --noinput)
 
-
-VOLUME ["/logs"]
+VOLUME ["/taiga"]
 
 WORKDIR /taiga
 

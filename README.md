@@ -17,8 +17,8 @@ These scripts allow you to run Taiga in one single host. The scripts will launch
 External Dependencies:
 
    * [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
-   * [Redis](https://registry.hub.docker.com/u/dockerfile/redis/)
-   * [RabbitMQ](https://registry.hub.docker.com/u/dockerfile/rabbitmq/)
+   * [Redis](https://registry.hub.docker.com/_/redis/)
+   * [RabbitMQ](https://registry.hub.docker.com/_/rabbitmq/)
 
 Taiga
 
@@ -53,22 +53,22 @@ Once you are in psql you can check that indeed our user & database have been cre
 
     # https://github.com/dockerfile/rabbitmq
 
-    docker run -d -p 5672:5672 -p 15672:15672 -v /data/rabbitmq:/data/log -v /data/rabbitmq:/data/mnesia --name rabbitmq  dockerfile/rabbitmq
+    docker run -d -p 5672:5672 -p 15672:15672 -v /data/rabbitmq:/data/log -v /data/rabbitmq:/data/mnesia --name rabbitmq  rabbitmq
 
 ### Redis
     # https://github.com/dockerfile/redis
 
-    docker run -d -p 6379:6379 -v /data/redis:/data --name redis dockerfile/redis
+    docker run -d -p 6379:6379 -v /data/redis:/data --name redis redis
 
 ### Taiga-Back
 
 Before running our backend, we have to populate our database, to do so, Taiga provides a regenerate script that creates all the tables and even some testing data
 
-    docker run -it --rm --link postgres:postgres taiga/taiga-back bash regenerate.sh
+    docker run -it --rm --link postgres:postgres ipedrazas/taiga-back bash regenerate.sh
 
 Once the database has been populated, we can start our Django application:
 
-    docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq taiga/taiga-back
+    docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq ipedrazas/taiga-back
 
 
 ### Taiga-Front
@@ -77,9 +77,9 @@ The frontend is slightly different because we don't have a production ready syst
 
 We have two options here: to politely ask Taiga to provide an already built version (\o/) or to build an intermediate container that will pull the source from GitHub, compile it and build our new image.
 
-To build the frontend we have to run the taiga/frontend-build container
+To build the frontend we have to run the ipedrazas/frontend-build container
 
-        sudo docker run -it --rm -v /data/taiga:/taiga taiga/front-build
+        sudo docker run -it --rm -v /data/taiga:/taiga ipedrazas/front-build
         sudo docker run -it --rm -v /data/taiga:/taiga ipedrazas/taiga-build-frontend
 
 this should create the `dist` directory in `/data/taiga`
@@ -116,7 +116,7 @@ Once we have executed these two scripts, we should have the following in our hos
 
 Finally, we run the frontend
 
-        docker run -d -p 80:80 taiga/front
+        docker run -d -p 80:80 ipedrazas/taiga-front
 
 
 #### Note for OSX + boot2docker Users
