@@ -68,55 +68,15 @@ Before running our backend, we have to populate our database, to do so, Taiga pr
 
 Once the database has been populated, we can start our Django application:
 
-    docker run -d -p 8000:8000 --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq ipedrazas/taiga-back
+    docker run -d -p 8000:8000 --name taiga-back --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq ipedrazas/taiga-back
 
 
 ### Taiga-Front
 
-The frontend is slightly different because we don't have a production ready system, but the source. This means that before running our instance, we have to build it.
-
-We have two options here: to politely ask Taiga to provide an already built version (\o/) or to build an intermediate container that will pull the source from GitHub, compile it and build our new image.
-
-To build the frontend we have to run the ipedrazas/frontend-build container
-
-        sudo docker run -it --rm -v /data/taiga:/taiga ipedrazas/front-build
-        sudo docker run -it --rm -v /data/taiga:/taiga ipedrazas/taiga-build-frontend
-
-this should create the `dist` directory in `/data/taiga`
-
-Now we have to create the static site from our django app, to do so, we execute the following command in the taiga-back container:
-
-        sudo docker run -it --rm  -v /data/taiga:/static taiga/taiga-back sh -c 'mv /taiga/static /static/'
-
-Once we have executed these two scripts, we should have the following in our host:
-
-        -> % ll /data/taiga/* | grep -vE "/data/taiga/^$"
-        /data/taiga/dist:
-        total 44K
-        drwxr-xr-x 2 root root 4.0K Oct  6 15:54 svg/
-        drwxr-xr-x 3 root root 4.0K Oct  6 15:54 plugins/
-        -rw-r--r-- 1 root root 7.7K Oct  6 15:54 index.html
-        drwxr-xr-x 3 root root 4.0K Oct  6 15:54 images/
-        drwxr-xr-x 9 root root 4.0K Oct  6 15:55 ./
-        drwxr-xr-x 2 root root 4.0K Oct  6 15:55 styles/
-        drwxr-xr-x 2 root root 4.0K Oct  6 15:55 fonts/
-        drwxr-xr-x 3 root root 4.0K Oct  6 15:55 partials/
-        drwxr-xr-x 2 root root 4.0K Oct  6 15:55 js/
-        drwxr-xr-x 4 root root 4.0K Oct  6 16:52 ../
-
-        /data/taiga/static:
-        total 24K
-        drwxr-xr-x 2 root root 4.0K Oct  6 16:30 emails/
-        drwxr-xr-x 5 root root 4.0K Oct  6 16:30 admin/
-        drwxr-xr-x 5 root root 4.0K Oct  6 16:30 rest_framework/
-        drwxr-xr-x 3 root root 4.0K Oct  6 16:30 img/
-        drwxr-xr-x 6 root root 4.0K Oct  6 16:30 ./
-        drwxr-xr-x 4 root root 4.0K Oct  6 16:52 ../
-
 
 Finally, we run the frontend
 
-        docker run -d -p 80:80 ipedrazas/taiga-front
+        docker run -d -p 80:80 --link taiga-back:taiga-back ipedrazas/taiga-front
 
 
 #### Note for OSX + boot2docker Users

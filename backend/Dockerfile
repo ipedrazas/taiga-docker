@@ -25,8 +25,8 @@ VOLUME ["/taiga"]
 
 WORKDIR /taiga
 
-EXPOSE 8001
+EXPOSE 8000
 
 RUN locale -a
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8001"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
