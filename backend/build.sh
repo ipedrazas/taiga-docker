@@ -13,7 +13,7 @@ if [[ $OSTYPE != darwin* ]]; then
     sed -i -e '/sample_data/s/^/#/' taiga-back/regenerate.sh
 else
     sed -i '.bak' 's/^enum34/#enum34/' taiga-back/requirements.txt
-    sed -i -e '.bak' '/sample_data/s/^/#/' taiga-back/regenerate.sh
+    sed -i '.bak' '/sample_data/s/^/#/' taiga-back/regenerate.sh
 fi
 
 cp taiga-back/requirements.txt .

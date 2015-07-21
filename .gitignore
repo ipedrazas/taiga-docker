@@ -2,3 +2,5 @@
 backend/taiga-back
 backend/requirements.txt
 frontend/taiga-front-dist
+postgresql
+
