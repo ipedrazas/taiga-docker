@@ -1,6 +1,9 @@
 # taiga-docker
 
 
+##I'm in the middle of refactoring these containers. Hold it for a while... unless you know what you're doing!
+
+
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
