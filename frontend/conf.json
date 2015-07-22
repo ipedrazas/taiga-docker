@@ -1,5 +1,5 @@
 {
-    "api": "http://boot2docker:8000/api/v1/",
+    "api": "http://API_SERVER:8000/api/v1/",
     "eventsUrl": null,
     "debug": true,
     "debugInfo": false,

@@ -1,28 +1,42 @@
 # taiga-docker
 
-
-##I'm in the middle of refactoring these containers. Hold it for a while... unless you know what you're doing!
-
-
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
 External Dependencies:
 
    * [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
-   * [Redis](https://registry.hub.docker.com/_/redis/)
-   * [RabbitMQ](https://registry.hub.docker.com/_/rabbitmq/)
 
 Taiga
 
    * [taiga-back](https://github.com/taigaio/taiga-back): Django backend
    * [taiga-front](https://github.com/taigaio/taiga-front): Angular.js frontend
 
+
+By far the easiest way of setting up Taiga in Docker is by running the `setup.sh` script. So, if you just want to run it and you just don't care about what happens underneath, just run that script.
+
+There's a catch. The API url has to be specified. Taiga frontend is javascript, so, we have to inject the value of the hostname where taiga-back runs. We can do that by defining an environment variable
+
+        export API_NAME=boot2docker
+
+For example, it will make the requests to `http://boot2docker:8000/api/v1/...` If you don't define this variable the script will assume it's `localhost` (if you're using `boot2docker` it will not work).
+
+If you want to run the frontend manually, this is the command:
+
+        docker run -d --name taiga-front -p 80:80 -e API_NAME=$API_NAME --link taiga-back:taiga-back ipedrazas/taiga-front
+
+
+Once you've successfully installed Taiga start a web browser and point it to `http://localhost` or `http://boot2docker`. You should be greeted by a login page. The administrators username is `admin`, and the password is `123123`.
+
+If you cannot authenticate, probably is that the API_NAME has not been set properly.
+
+There is another script `run.sh` that you can use to start your taiga containers once the installation has been succesful. You don't have to run it after the setup, just after stopping the containers.
+
 ### Postgresql
 
 We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
 
-    docker run --name postgres -v /data/postgresql:/var/lib/postgresql/data -d -p 5432:5432 postgres
+    docker run --name postgres  postgres
 
 To initialise the database
 
@@ -42,26 +56,17 @@ Once you are in psql you can check that indeed our user & database have been cre
     \list
 
 
-### RabbitMQ
-
-    # https://github.com/dockerfile/rabbitmq
-
-    docker run -d -p 5672:5672 -p 15672:15672 -v /data/rabbitmq:/data/log -v /data/rabbitmq:/data/mnesia --name rabbitmq  rabbitmq
-
-### Redis
-    # https://github.com/dockerfile/redis
-
-    docker run -d -p 6379:6379 -v /data/redis:/data --name redis redis
-
 ### Taiga-Back
 
 Before running our backend, we have to populate our database, to do so, Taiga provides a regenerate script that creates all the tables and even some testing data
 
+    # pull the image
+    docker pull ipedrazas/taiga-back
+
+    # regenerate tables
     docker run -it --rm --link postgres:postgres ipedrazas/taiga-back bash regenerate.sh
 
 Once the database has been populated, we can start our Django application:
-
-    docker run -d -p 8000:8000 --name taiga-back --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq ipedrazas/taiga-back
 
     docker run -d -p 8000:8000 --name taiga-back --link postgres:postgres ipedrazas/taiga-back
 
@@ -71,12 +76,14 @@ Once the database has been populated, we can start our Django application:
 
 Finally, we run the frontend
 
+        # pull the image
+        docker pull ipedrazas/taiga-back
+
+        # run the frontend
         docker run -d -p 80:80 --link taiga-back:taiga-back ipedrazas/taiga-front
 
 
-#### Note for OSX + boot2docker Users
+The frontend needs to know the URL of the backend. Those settings are specified in the `frontend/conf.json` file. You can modify them and re-add them into the image by using a volume
 
-Since boot2docker actually runs the docker commands in a virtual machine you must omit the leading 'sudo' from those of the above commands that use it.
+        docker run -d -p 80:80 --link taiga-back:taiga-back -v "$(pwd)"/frontend/conf.json:/taiga/js/conf.json:ro ipedrazas/taiga-front
 
-
-Once you've successfully run run-taiga.sh start a web browser and point it to http://localhost:80. You should be greeted by a login page. The administrators username is `admin`, and the password is `123123`.
