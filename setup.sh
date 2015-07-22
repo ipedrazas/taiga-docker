@@ -12,7 +12,7 @@ sudo mkdir -p /data/postgres
 
 
 
-$SUDO docker run --name postgres   -v /data/postgres:/var/lib/postgresql/data postgres
+$SUDO docker run -d --name postgres  -v /data/postgres:/var/lib/postgresql/data postgres
 $SUDO docker run -d --name taiga-back  -p 8000:8000  --link postgres:postgres ipedrazas/taiga-back
 $SUDO docker run -d --name taiga-front -p 80:80 -e API_NAME=$API_NAME --link taiga-back:taiga-back ipedrazas/taiga-front
 
