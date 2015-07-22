@@ -10,6 +10,8 @@ fi
 
 sudo mkdir -p /data/postgres
 
+$SUDO docker pull ipedrazas/taiga-back
+$SUDO docker pull ipedrazas/taiga-front
 
 
 $SUDO docker run -d --name postgres  -v /data/postgres:/var/lib/postgresql/data postgres
