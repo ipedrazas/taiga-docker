@@ -7,16 +7,6 @@
 Docker scripts to run your own  [Taiga](https://Taiga.io/).
 
 
-
-Running Taiga is as easy as running these 3 scripts:
-
-* install-docker.sh: install docker (Ubuntu only). `skip this step if you have Docker installed in your machine`
-* setup.sh: creates directories to store the data from postgres, redis and rabbitmq, initializes the database, pre-loads objects and docker images.
-* run-taiga.sh: once you have run setup.sh succesfully you can run taiga from this script.
-
-These scripts allow you to run Taiga in one single host. The scripts will launch 5 docker containers:
-
-
 External Dependencies:
 
    * [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
@@ -72,6 +62,8 @@ Before running our backend, we have to populate our database, to do so, Taiga pr
 Once the database has been populated, we can start our Django application:
 
     docker run -d -p 8000:8000 --name taiga-back --link postgres:postgres --link redis:redis --link rabbitmq:rabbitmq ipedrazas/taiga-back
+
+    docker run -d -p 8000:8000 --name taiga-back --link postgres:postgres ipedrazas/taiga-back
 
 
 ### Taiga-Front

@@ -19,5 +19,3 @@ fi
 cp taiga-back/requirements.txt .
 
 docker build -t ipedrazas/taiga-back .
-
-
