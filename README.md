@@ -36,7 +36,7 @@ There is another script `run.sh` that you can use to start your taiga containers
 
 We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
 
-    docker run --name postgres  postgres
+    docker run -d --name postgres  postgres
 
 To initialise the database
 
