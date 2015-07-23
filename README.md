@@ -37,8 +37,16 @@ There is another script `run.sh` that you can use to start your taiga containers
 We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
 
     docker run -d --name postgres  postgres
+    
+**Note about Volumes**
 
-To initialise the database
+If you try to mount volumes in OSX using `boot2docker` you will see that it does not work. This is known problem and it only affects OSX. There's a solution though. You might want to extend the postgres docker image and add this line:
+
+`RUN usermod -u 1000 postgres`
+
+This change will fix the permission problem when mounting a volume.
+
+**To initialise the database**
 
     docker run -it --link postgres:postgres --rm postgres sh -c "su postgres --command 'createuser -h "'$POSTGRES_PORT_5432_TCP_ADDR'" -p "'$POSTGRES_PORT_5432_TCP_PORT'" -d -r -s taiga'"
 
