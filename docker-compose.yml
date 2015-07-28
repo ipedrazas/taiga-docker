@@ -4,14 +4,14 @@ postgres:
 taigaback:
     image: ipedrazas/taiga-back
     links:
-        - postgres
+        - postgres:postgres
     ports:
         - "8000:8000"
 
 taigafront:
     image: ipedrazas/taiga-front
     links:
-        - taigaback
+        - taigaback:taiga-back
     ports:
         - "80:80"
     environment:
