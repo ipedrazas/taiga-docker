@@ -193,11 +193,12 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 # The absolute url is mandatory because attachments
 # urls depends on it. On production should be set
 # something like https://media.taiga.io/
-MEDIA_URL = "http://localhost:8000/media/"
+
+MEDIA_URL = "http://" + os.getenv("API_NAME") +":8000/media/"
 
 # Static url is not widelly used by taiga (only
 # if admin is activated).
-STATIC_URL = "http://localhost:8000/static/"
+STATIC_URL = "http://" + os.getenv("API_NAME") +":8000/static/"
 
 # Static configuration.
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
