@@ -37,7 +37,7 @@ There is another script `run.sh` that you can use to start your taiga containers
 We run a container based on the original image provided by [PostgreSQL](https://registry.hub.docker.com/_/postgres/)
 
     docker run -d --name postgres  postgres
-    
+
 **Note about Volumes**
 
 If you try to mount volumes in OSX using `boot2docker` you will see that it does not work. This is known problem and it only affects OSX. There's a solution though. You might want to extend the postgres docker image and add this line:
@@ -88,7 +88,7 @@ Finally, we run the frontend
         docker pull ipedrazas/taiga-back
 
         # run the frontend
-        docker run -d -p 80:80 --link taiga-back:taiga-back ipedrazas/taiga-front
+        docker run -d -p 80:80 --link taiga-back:taiga-back --volumes-from taiga-back ipedrazas/taiga-front
 
 
 The frontend needs to know the URL of the backend. Those settings are specified in the `frontend/conf.json` file. You can modify them and re-add them into the image by using a volume

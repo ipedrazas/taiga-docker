@@ -22,7 +22,7 @@ ENV API_NAME localhost
 
 RUN (cd /taiga && python manage.py collectstatic --noinput)
 
-VOLUME ["/taiga"]
+VOLUME ["/taiga/static"]
 
 WORKDIR /taiga
 
