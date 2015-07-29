@@ -18,6 +18,7 @@ RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 
 ENV LANG en_US.UTF-8
 ENV LC_TYPE en_US.UTF-8
+ENV API_NAME localhost
 
 RUN (cd /taiga && python manage.py collectstatic --noinput)
 
