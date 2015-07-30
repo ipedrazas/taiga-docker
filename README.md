@@ -95,3 +95,7 @@ The frontend needs to know the URL of the backend. Those settings are specified 
 
         docker run -d -p 80:80 --link taiga-back:taiga-back -v "$(pwd)"/frontend/conf.json:/taiga/js/conf.json:ro ipedrazas/taiga-front
 
+
+## What's next?
+
+The docker compose file needs some love and care but the next is to add RabbitMQ and the Taiga events plugged in.
