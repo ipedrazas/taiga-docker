@@ -27,7 +27,7 @@ ADMINS = (
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "transaction_hooks.backends.postgresql_psycopg2",
         "NAME": "taiga",
         "HOST": "postgres",
         "USER": "taiga",
