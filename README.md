@@ -85,7 +85,7 @@ Once the database has been populated, we can start our Django application:
 Finally, we run the frontend
 
         # pull the image
-        docker pull ipedrazas/taiga-back
+        docker pull ipedrazas/taiga-front
 
         # run the frontend
         docker run -d -p 80:80 --link taiga-back:taiga-back --volumes-from taiga-back ipedrazas/taiga-front
