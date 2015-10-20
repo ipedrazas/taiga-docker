@@ -1,9 +1,5 @@
 #! /bin/bash
 
-if [[ $OSTYPE != darwin* ]]; then
-  SUDO=sudo
-fi
-
 if [[ -d  taiga-front-dist ]]; then
     rm -rf taiga-front-dist
 fi

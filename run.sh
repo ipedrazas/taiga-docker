@@ -1,9 +1,5 @@
-#! /usr/bin/env 0bash
+#! /usr/bin/env bash
 
-if [[ $OSTYPE != darwin* ]]; then
-  SUDO=sudo
-fi
-
-$SUDO docker stop taiga-front
-$SUDO docker stop taiga-back
-$SUDO docker stop postgres
+docker stop taiga-front
+docker stop taiga-back
+docker stop postgres
