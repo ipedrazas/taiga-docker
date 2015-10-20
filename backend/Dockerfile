@@ -20,7 +20,7 @@ ENV LANG en_US.UTF-8
 ENV LC_TYPE en_US.UTF-8
 ENV API_NAME localhost
 
-RUN (cd /taiga && python manage.py collectstatic --noinput)
+# RUN (cd /taiga && python manage.py collectstatic --noinput)
 
 VOLUME ["/taiga/static","/taiga/media"]
 
