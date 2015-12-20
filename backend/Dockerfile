@@ -9,7 +9,7 @@ COPY docker-settings.py /taiga/settings/local.py
 COPY locale.gen /etc/locale.gen
 
 RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
-RUN echo "LC_TYPE=en_US.UTF-8" > /etc/default/locale
+RUN echo "LC_TYPE=en_US.UTF-8" >> /etc/default/locale
 RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
 RUN echo "LANGUAGE=en" >> /etc/default/locale
 
