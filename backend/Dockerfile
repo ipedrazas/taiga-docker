@@ -16,6 +16,10 @@ WORKDIR /usr/src/app/taiga-back
 
 EXPOSE 8000
 
+## Volume definition in docker-compose.yml instead of here
+# VOLUME ["/taiga/static","/taiga/media"]
+
+
 RUN locale -a
 
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
