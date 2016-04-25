@@ -4,10 +4,12 @@ if [[ -z "$API_NAME" ]]; then
     API_NAME="localhost";
 fi
 
+echo API_NAME: $API_NAME
+
 mkdir -p /data/postgres
 
-docker pull ipedrazas/taiga-back
-docker pull ipedrazas/taiga-front
+#docker pull ipedrazas/taiga-back
+#docker pull ipedrazas/taiga-front
 
 
 docker run -d --name postgres  -v /data/postgres:/var/lib/postgresql/data postgres
