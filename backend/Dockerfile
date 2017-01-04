@@ -3,30 +3,22 @@ MAINTAINER Ivan Pedrazas "ipedrazas@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ADD taiga-back /taiga
-
-COPY docker-settings.py /taiga/settings/local.py
+COPY docker-settings.py /usr/src/app/taiga-back/settings/local.py
 COPY locale.gen /etc/locale.gen
+COPY default.locale /etc/default/locale
 
-RUN echo "LANG=en_US.UTF-8" > /etc/default/locale
-RUN echo "LC_TYPE=en_US.UTF-8" >> /etc/default/locale
-RUN echo "LC_MESSAGES=POSIX" >> /etc/default/locale
-RUN echo "LANGUAGE=en" >> /etc/default/locale
-
-RUN apt-get update  && apt-get install locales -y
+RUN apt-get update  && apt-get autoremove -y && apt-get install locales -y
 RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
-
-ENV LANG en_US.UTF-8
-ENV LC_TYPE en_US.UTF-8
-ENV API_NAME localhost
 
 # RUN (cd /taiga && python manage.py collectstatic --noinput)
 
-VOLUME ["/taiga/static","/taiga/media"]
-
-WORKDIR /taiga
+WORKDIR /usr/src/app/taiga-back
 
 EXPOSE 8000
+
+## Volume definition in docker-compose.yml instead of here
+# VOLUME ["/taiga/static","/taiga/media"]
+
 
 RUN locale -a
 
