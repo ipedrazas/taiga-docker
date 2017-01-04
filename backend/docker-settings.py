@@ -30,7 +30,7 @@ DEBUG = False
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "transaction_hooks.backends.postgresql",
         "NAME": "taiga",
         "HOST": "postgres",
         "USER": "taiga",
