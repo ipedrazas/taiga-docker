@@ -15,8 +15,10 @@ IF "%postgres_data%" == "" (
 echo API_NAME: %API_NAME%
 echo POSTGRES_DATA: %POSTGRES_DATA%
 
-:: Update the path if needed
-mkdir %POSTGRES_DATA%
+:: letting the script create the folder will result in ownership conflict with docker
+::IF NOT EXIST %POSTGRES_DATA% (
+::	mkdir %POSTGRES_DATA%
+::)
 
 docker run -d --name postgres  -v %POSTGRES_DATA%:/var/lib/postgresql/data postgres
 :: postgres needs some time to startup
