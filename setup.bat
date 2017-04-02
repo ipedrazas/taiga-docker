@@ -6,7 +6,7 @@ IF "%api_name%" == "" (
     set API_NAME="localhost";
 )
 
-echo API_NAME: $API_NAME
+echo API_NAME: %API_NAME%
 
 mkdir -p /data/postgres
 
