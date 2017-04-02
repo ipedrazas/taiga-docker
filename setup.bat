@@ -3,7 +3,7 @@
 set api_name=%API_NAME%
 
 IF "%api_name%" == "" (
-    set API_NAME="localhost";
+    set API_NAME="localhost"
 )
 
 set postgres_data=%POSTGRES_DATA%
