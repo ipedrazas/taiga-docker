@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: database-setup
+spec:
+  template:
+    metadata:
+      name: database-setup
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: $NODE_SELECTOR
+      containers:
+      - name: database-setup
+        image: $IMAGE_BACK
+        imagePullPolicy: IfNotPresent
+        command: ["./regenerate.sh", "-y"]
+      restartPolicy: OnFailure

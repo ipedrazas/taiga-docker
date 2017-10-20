@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fesvc
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: front
+  selector:
+    app: taiga
+    tier: web
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: taigastatic-pv-claim
+  labels:
+    app: taiga
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: taigamedia-pv-claim
+  labels:
+    app: taiga
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: taiga-web
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: taiga
+        tier: web
+    spec:
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "taiga-back"
+      nodeSelector:
+        cloud.google.com/gke-nodepool: $NODE_SELECTOR
+      containers:
+
+      - name: front
+        image: $IMAGE_FRONT
+        ports:
+        - containerPort: 80
+          name: front
+        env:
+        - name: BASE_PROTOCOL
+          value: $BASE_PROTOCOL
+        - name: BASE_DOMAIN
+          value: $BASE_DOMAIN
+
+      - name: back
+        image: $IMAGE_BACK
+        ports:
+        - containerPort: 8000
+          name: back
+        env:
+        - name: EMAIL_HOST
+          value: "$EMAIL_HOST"
+        - name: EMAIL_PORT
+          value: "$EMAIL_PORT"
+        - name: EMAIL_HOST_USER
+          value: "$EMAIL_HOST_USER"
+        - name: EMAIL_HOST_PASSWORD
+          value: "$EMAIL_HOST_PASSWORD"
+        - name: DEFAULT_FROM_EMAIL
+          value: "$DEFAULT_FROM_EMAIL"
+        - name: BASE_PROTOCOL
+          value: $BASE_PROTOCOL
+        - name: BASE_DOMAIN
+          value: $BASE_DOMAIN
+
+        volumeMounts:
+        - name: taigastatic-persistent-storage
+          mountPath: /taiga/static
+        - name: taigamedia-persistent-storage
+          mountPath: /taiga/media
+      volumes:
+      - name: taigastatic-persistent-storage
+        persistentVolumeClaim:
+          claimName: taigastatic-pv-claim
+      - name: taigamedia-persistent-storage
+        persistentVolumeClaim:
+          claimName: taigamedia-pv-claim

@@ -38,18 +38,18 @@ DATABASES = {
     }
 }
 
-#SITES = {
-#    "api": {
-#       "scheme": "http",
-#       "domain": "localhost:8000",
-#       "name": "api"
-#    },
-#    "front": {
-#       "scheme": "http",
-#       "domain": "localhost:9001",
-#       "name": "front"
-#    },
-#}
+SITES = {
+    "api": {
+       "scheme": "http",
+       "domain": "localhost:8000",
+       "name": "api"
+    },
+    "front": {
+       "scheme": os.getenv("BASE_PROTOCOL"),
+       "domain": os.getenv("BASE_DOMAIN"),
+       "name": "front"
+    },
+}
 
 #SITE_ID = "api"
 
@@ -85,16 +85,16 @@ DATABASES = {
 ## MAIL SYSTEM SETTINGS
 #########################################
 
-#DEFAULT_FROM_EMAIL = "john@doe.com"
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 #CHANGE_NOTIFICATIONS_MIN_INTERVAL = 300 #seconds
 
 # EMAIL SETTINGS EXAMPLE
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_USE_TLS = False
-#EMAIL_HOST = 'localhost'
-#EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'user'
-#EMAIL_HOST_PASSWORD = 'password'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 # GMAIL SETTINGS EXAMPLE
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
