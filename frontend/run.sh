@@ -1,5 +1,6 @@
 #! /usr/bin/env bash
 
-sed -i "s/API_SERVER/$API_NAME/g" /taiga/conf.json
+ESCAPED_BASE_URL=$(echo $BASE_URL | sed -e 's/[\/&]/\\&/g')
+sed -i "s/BASE_URL/$ESCAPED_BASE_URL/g" /taiga/conf.json
 
 nginx -g "daemon off;"

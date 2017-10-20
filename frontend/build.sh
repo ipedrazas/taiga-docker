@@ -9,7 +9,7 @@ git clone https://github.com/taigaio/taiga-front-dist
 # Production ready frontend is in "stable" and not in "master" therefore after clone I need to change to "stable"
 git checkout stable
 
-$SUDO docker build -t ipedrazas/taiga-front .
+docker build -t dougg/taiga-front .
 
 if [[ -d  taiga-front-dist ]]; then
     rm -rf taiga-front-dist

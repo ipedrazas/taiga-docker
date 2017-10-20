@@ -1,18 +1,21 @@
 postgres:
     image: postgres
+    environment:
+        - "POSTGRES_USER=taiga"
+        - "POSTGRES_DB=taiga"
 
 taigaback:
-    image: ipedrazas/taiga-back
+    image: dougg/taiga-back
     links:
         - postgres:postgres
     ports:
         - "8000:8000"
 
 taigafront:
-    image: ipedrazas/taiga-front
+    image: dougg/taiga-front
     links:
         - taigaback:taiga-back
     ports:
-        - "80:80"
+        - "8080:80"
     environment:
-        - "API_NAME=boot2docker"
+        - "BASE_URL=http://localhost:8000"

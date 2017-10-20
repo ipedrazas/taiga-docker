@@ -1,8 +1,9 @@
 {
-    "api": "http://API_SERVER:8000/api/v1/",
+    "api": "BASE_URL/api/v1/",
     "eventsUrl": null,
     "eventsMaxMissedHeartbeats": 5,
     "eventsHeartbeatIntervalTime": 60000,
+    "eventsReconnectTryInterval": 10000,
     "debug": true,
     "debugInfo": false,
     "defaultLanguage": "en",
@@ -13,5 +14,8 @@
     "privacyPolicyUrl": null,
     "termsOfServiceUrl": null,
     "maxUploadFileSize": null,
-    "contribPlugins": []
+    "contribPlugins": [],
+    "tribeHost": null,
+    "importers": [],
+    "gravatar": true
 }
