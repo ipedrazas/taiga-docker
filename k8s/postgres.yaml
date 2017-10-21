@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: taiga
+    tier: postgres
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: taiga
+    tier: postgres
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pv-claim
+  labels:
+    app: taiga
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: taiga
+    tier: postgres
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: taiga
+        tier: postgres
+    spec:
+      nodeSelector:
+        cloud.google.com/gke-nodepool: $NODE_SELECTOR
+      containers:
+      - image: postgres
+        name: postgres
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: POSTGRES_USER
+          value: taiga
+        - name: POSTGRES_DB
+          value: taiga
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+          name: postgres
+        volumeMounts:
+        - name: postgres-persistent-storage
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-persistent-storage
+        persistentVolumeClaim:
+          claimName: postgres-pv-claim
